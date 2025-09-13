@@ -1,5 +1,4 @@
-# import WignerSymbols_Simple: wigner3j, wigner6j
-import WignerSymbols
+# import WignerSymbols
 import LinearAlgebra: norm
 
 using CompositeStructs
