@@ -1,6 +1,6 @@
 module QuantumStates
 
-using UnitsToValue
+using PhysicalQuantitiesSimple
 using StaticArrays
 using Parameters
 
