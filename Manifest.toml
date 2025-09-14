@@ -944,7 +944,7 @@ version = "0.2.4"
 deps = ["PhysicalConstants", "Unitful"]
 git-tree-sha1 = "d51591eb26931fbf298fac439e88949e3482bc86"
 repo-rev = "main"
-repo-url = "https://github.com/hallaschristian/PhysicalQuantitiesSimple"
+repo-url = "https://github.com/hallaschristian/PhysicalQuantitiesSimple.jl"
 uuid = "5caa0048-c25e-4a56-acb0-6c22dcda5114"
 version = "0.1.0"
 
