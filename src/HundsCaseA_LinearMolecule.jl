@@ -85,8 +85,8 @@ function SpinUncoupling(state::HundsCaseA_LinearMolecule, state′::HundsCaseA_L
     return -2 * (-1)^(J - P + S - Σ) * 
         sqrt( J * (J + 1) * (2J + 1) * S * (S + 1) * (2S + 1) ) *
         sum(
-            wigner3j_(J, 1, J, -P, q, P′) * 
-            wigner3j_(S, 1, S, -Σ, q, Σ′)
+            wigner3j(J, 1, J, -P, q, P′) * 
+            wigner3j(S, 1, S, -Σ, q, Σ′)
             for q ∈ (-1,1)
         ) *
         δ(Λ,Λ′) * δ(ℓ,ℓ′) * δ(J,J′) * δ(F,F′) * δ(M,M′)
@@ -106,7 +106,7 @@ function ΛDoubling_q(state::HundsCaseA_LinearMolecule, state′::HundsCaseA_Lin
         sqrt( (2J - 1) * (2J) * (2J + 1) * (2J + 2) * (2J + 3) ) *
         sum(
             δ(Λ′, Λ + 2q) *
-            wigner3j_(J, 2, J′, -P, -2q, P′)
+            wigner3j(J, 2, J′, -P, -2q, P′)
             for q ∈ (-1,1)
         )
     ) * δ(ℓ,ℓ′) * δ(Σ,Σ′) * δ(J,J′) * δ(F,F′) * δ(M,M′)
@@ -124,8 +124,8 @@ function ΛDoubling_p2q(state::HundsCaseA_LinearMolecule, state′::HundsCaseA_L
         sqrt( J * (J + 1) * (2J + 1) * S * (S + 1) * (2S + 1) ) *
         sum(
             δ(Λ′, Λ + 2q) *
-            wigner3j_(J, 1, J′, -P, -q, P′) *
-            wigner3j_(S, 1, S, -Σ, q, Σ′)
+            wigner3j(J, 1, J′, -P, -q, P′) *
+            wigner3j(S, 1, S, -Σ, q, Σ′)
             for q ∈ (-1,1)
         ) *
         δ(ℓ,ℓ′) * δ(J,J′) * δ(F,F′) * δ(M,M′)
@@ -144,7 +144,7 @@ function ℓDoubling(state::HundsCaseA_LinearMolecule, state′::HundsCaseA_Line
         sqrt( (2J - 1) * (2J) * (2J + 1) * (2J + 2) * (2J + 3) ) *
         sum(
             δ(ℓ′, ℓ + 2q) *
-            wigner3j_(J, 2, J′, -P, -2q, P′)
+            wigner3j(J, 2, J′, -P, -2q, P′)
             for q ∈ (-1,1)
         )
     ) * δ(Σ,Σ′)
@@ -154,8 +154,8 @@ function ℓDoubling(state::HundsCaseA_LinearMolecule, state′::HundsCaseA_Line
         sqrt( J * (J + 1) * (2J + 1) * S * (S + 1) * (2S + 1) ) *
         sum(
             δ(ℓ′, ℓ + 2q) *
-            wigner3j_(J, 1, J′, -P, -q, P′) *
-            wigner3j_(S, 1, S′, -Σ, q, Σ′)
+            wigner3j(J, 1, J′, -P, -q, P′) *
+            wigner3j(S, 1, S′, -Σ, q, Σ′)
             for q ∈ (-1,1)
         )
     )
@@ -226,10 +226,10 @@ function Hyperfine_Dipolar_c(state::HundsCaseA_LinearMolecule, state′::HundsCa
         sqrt( S * (S + 1) * (2S + 1) ) *
         sum(
             (-1)^q * 
-            wigner3j_(J, 1, J′, -P, q, P′) *
+            wigner3j(J, 1, J′, -P, q, P′) *
             sum(
-                wigner3j_(1, 2, 1, q′, 0, -q) *
-                wigner3j_(S, 1, S, -Σ, q′, Σ′)
+                wigner3j(1, 2, 1, q′, 0, -q) *
+                wigner3j(S, 1, S, -Σ, q′, Σ′)
                 for q′ ∈ -1:1
             ) for q ∈ -1:1
         ) * 
@@ -247,13 +247,13 @@ function Hyperfine_Dipolar_d(state::HundsCaseA_LinearMolecule, state′::HundsCa
         sqrt( S * (S + 1) * (2S + 1) ) *
         sum(
             (-1)^q * 
-            wigner3j_(J, 1, J′, -P, q, P) *
+            wigner3j(J, 1, J′, -P, q, P) *
             sum(
                 (
-                    wigner3j_(1, 2, 1, q′, 2, -q) +
-                    wigner3j_(1, 2, 1, q′, -2, -q)
+                    wigner3j(1, 2, 1, q′, 2, -q) +
+                    wigner3j(1, 2, 1, q′, -2, -q)
                 ) *
-                wigner3j_(S, 1, S, -Σ, q′, Σ′)
+                wigner3j(S, 1, S, -Σ, q′, Σ′)
                 for q′ ∈ -1:1
             ) for q ∈ -1:1
         ) * 
@@ -343,12 +343,12 @@ function Zeeman_gl′(state::HundsCaseA_LinearMolecule, state′::HundsCaseA_Lin
         return 0.0
     else
         return (
-            (-1)^p * (-1)^(F-M) * wigner3j_(F,1,F′,-M,p,M′) * (-1)^(F′+J+I+1) * sqrt((2F+1)*(2F′+1)) *
+            (-1)^p * (-1)^(F-M) * wigner3j(F,1,F′,-M,p,M′) * (-1)^(F′+J+I+1) * sqrt((2F+1)*(2F′+1)) *
             wigner6j_(J′,F′,I,F,J,1) * 
             sum(
                 δ(K′, K - 2q) * (-1)^(J-P+S-Σ) *
-                (-1)^(J-P) * wigner3j_(J,1,J′,-P,q,P′) * sqrt((2J+1)*(2J′+1)) *
-                (-1)^(S-Σ) * wigner3j_(S,1,S,-Σ,-q,Σ′) * sqrt(S*(S+1)*(2S+1))
+                (-1)^(J-P) * wigner3j(J,1,J′,-P,q,P′) * sqrt((2J+1)*(2J′+1)) *
+                (-1)^(S-Σ) * wigner3j(S,1,S,-Σ,-q,Σ′) * sqrt(S*(S+1)*(2S+1))
                 for q ∈ (-1,1)
             )
         )
